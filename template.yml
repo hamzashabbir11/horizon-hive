@@ -24,7 +24,7 @@ Resources:
       Timeout: 300
       Events:
         BytewiseEvent:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /bytewise/{id}
             Method: GET
