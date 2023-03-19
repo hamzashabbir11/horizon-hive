@@ -5,7 +5,7 @@ Description: Markaz Logging and Monitoring
 
 Resources:
 
-  BytwiseHTTPApi:
+  BytewiseHTTPApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       StageName: default
