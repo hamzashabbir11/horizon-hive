@@ -1,26 +1,26 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: My SAM Template
+Description: Bytewise SAM Template
 
 
 Resources:
-        
   BytewiseFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: resources/lambda
-      Handler: lambda.handler
-      Runtime: python3.7
-      MemorySize: 128
-      Events:
-        Bytewise:
-          Type: HttpApi
-          Properties:
-            Path: /bytewise
-            Method: GET
-            ApiId: !Ref BytewiseHTTPApi
+  Type: AWS::Serverless::Function
+  Properties:
+    Handler: bytewise.handler
+    CodeUri: resources/bytewise
+    Runtime: python3.7
+    MemorySize: 128
+    Timeout: 300
+    Events:
+      BytewiseEvent:
+        Type: Api
+        Properties:
+          Path: /bytewise
+          Method: GET
+          ApiId: !Ref BytwiseHttpApi
 
-  BytewiseHTTPApi:
+  BytwiseHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       StageName: default
@@ -28,6 +28,8 @@ Resources:
         AllowOrigins: "'*'"
         AllowMethods: "'*'"
         AllowHeaders: "'*'"
+
+
 
 
 
