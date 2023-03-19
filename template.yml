@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Markaz Logging and Monitoring 
+
+
+Resources:
+  BytewiseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: resources/lambda
+      Handler: lambda.handler
+      Runtime: python3.7
+      MemorySize: 128
+      Events:
+        Bytewise:
+          Type: HttpApi
+          Properties:
+            Path: /bytewise
+            Method: GET
+            ApiId: !Ref BytewiseHTTPApi
+
+
+  BytwiseHTTPApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: default
+      CorsConfiguration:
+        AllowOrigins: "'*'"
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
