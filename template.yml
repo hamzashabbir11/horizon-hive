@@ -21,7 +21,6 @@ Resources:
       CodeUri: resources/lambda
       Handler: lambda.handler
       Runtime: python3.7
-      LogGroupName: /aws/lambda/bytewise
       MemorySize: 128
       Events:
         Bytewise:
