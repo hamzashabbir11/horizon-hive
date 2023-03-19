@@ -4,16 +4,6 @@ Description: My SAM Template
 
 
 Resources:
-
-  BytewiseHTTPApi:
-    Type: AWS::Serverless::HttpApi
-    Properties:
-      StageName: default
-      CorsConfiguration:
-        AllowOrigins: "'*'"
-        AllowMethods: "'*'"
-        AllowHeaders: "'*'"
-
         
   BytewiseFunction:
     Type: AWS::Serverless::Function
@@ -29,6 +19,15 @@ Resources:
             Path: /bytewise
             Method: GET
             ApiId: !Ref BytewiseHTTPApi
+
+  BytewiseHTTPApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: default
+      CorsConfiguration:
+        AllowOrigins: "'*'"
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
 
 
 
