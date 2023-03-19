@@ -4,6 +4,17 @@ Description: Markaz Logging and Monitoring
 
 
 Resources:
+
+  BytwiseHTTPApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: default
+      CorsConfiguration:
+        AllowOrigins: "'*'"
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+
+        
   BytewiseFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -20,11 +31,4 @@ Resources:
             ApiId: !Ref BytewiseHTTPApi
 
 
-  BytwiseHTTPApi:
-    Type: AWS::Serverless::HttpApi
-    Properties:
-      StageName: default
-      CorsConfiguration:
-        AllowOrigins: "'*'"
-        AllowMethods: "'*'"
-        AllowHeaders: "'*'"
+
