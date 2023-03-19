@@ -26,4 +26,4 @@ jobs:
           aws-region: ap-southeast-1
       
       - run: sam build --use-container
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name bytewise-sam --resolve-s3 --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --region ap-southeast-1 
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name bytewise-sam-template --resolve-s3 --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND --region ap-southeast-1 
