@@ -4,21 +4,6 @@ Description: Bytewise SAM Template
 
 
 Resources:
-  BytewiseFunction:
-  Type: AWS::Serverless::Function
-  Properties:
-    Handler: bytewise.handler
-    CodeUri: resources/bytewise
-    Runtime: python3.7
-    MemorySize: 128
-    Timeout: 300
-    Events:
-      BytewiseEvent:
-        Type: Api
-        Properties:
-          Path: /bytewise
-          Method: GET
-          ApiId: !Ref BytwiseHttpApi
 
   BytwiseHttpApi:
     Type: AWS::Serverless::HttpApi
@@ -28,6 +13,24 @@ Resources:
         AllowOrigins: "'*'"
         AllowMethods: "'*'"
         AllowHeaders: "'*'"
+
+  BytewiseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: bytewise.handler
+      CodeUri: resources/bytewise
+      Runtime: python3.7
+      MemorySize: 128
+      Timeout: 300
+      Events:
+        BytewiseEvent:
+          Type: Api
+          Properties:
+            Path: /bytewise
+            Method: GET
+            ApiId: !Ref BytwiseHttpApi
+
+
 
 
 
