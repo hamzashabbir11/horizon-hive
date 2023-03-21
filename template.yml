@@ -30,6 +30,11 @@ Resources:
             Method: GET
             ApiId: !Ref BytwiseHttpApi
 
+  BytewiseQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: bytewise-queue.fifo
+      FifoQueue: true
 
 
 
