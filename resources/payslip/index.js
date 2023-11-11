@@ -98,6 +98,13 @@ exports.handler = async (event, context) => {
     // close the browser
     await browser.close();
 
+    // generate a Pre Signed URL for the PDF file 
+    const s3Params2 = {
+      Bucket: payslip_bucket,
+      Key: `${s3Path}/${s3FileName}`,
+      Expires: 60 * 5,
+    };
+    const url = await s3.getSignedUrlPromise("getObject", s3Params2);
     // delete message from queue
     const deleteParams = {
       QueueUrl: queue_url,
@@ -105,7 +112,8 @@ exports.handler = async (event, context) => {
     };
     return {
       statusCode: 200,
-      body: 'PDF generation and upload successful',
+      body: 'Here is your Payslip',
+      url: url,
     };
   }
 

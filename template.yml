@@ -58,6 +58,10 @@ Resources:
               Action:
                 - s3:PutObject*
               Resource: !Sub "arn:aws:s3:::${PaySlipBucket}/*"
+            - Effect: Allow
+              Action:
+                - S3:GetObject*
+              Resource: !Sub "arn:aws:s3:::${PaySlipBucket}/*"
       Environment:
         Variables:
           payslip_bucket: !Ref PaySlipBucket
