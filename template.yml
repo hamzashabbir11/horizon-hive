@@ -49,17 +49,17 @@ Resources:
     Metadata:
       BuildMethod: python3.7
 
-  # PDFGeneratorNodeLayer:
-  #   Type: AWS::Lambda::LayerVersion
-  #   Properties:
-  #     CompatibleRuntimes:
-  #       - nodejs14.x
-  #     Content:
-  #       S3Bucket: !Ref PDFLayerBucketRef
-  #       S3Key: puppeteer.zip # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversion.html
-  #     Description: puppeteer
-  #     LayerName: puppeteer
-  #     LicenseInfo: MIT
+  PDFGeneratorNodeLayer:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      CompatibleRuntimes:
+        - nodejs14.x
+      Content:
+        S3Bucket: !Ref PDFLayerBucketRef
+        S3Key: puppeteer.zip # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversion.html
+      Description: puppeteer
+      LayerName: puppeteer
+      LicenseInfo: MIT
 
   NodeJSDocumentsDependencies:
     Type: AWS::Serverless::LayerVersion
