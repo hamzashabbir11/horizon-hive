@@ -4,8 +4,8 @@ const hbs = require("handlebars");
 const fs = require("fs-extra");
 const path = require("path");
 const mysql = require("mysql2/promise");
-const QRCode = require("qrcode");
-const bwipjs = require("bwip-js");
+// const QRCode = require("qrcode");
+// const bwipjs = require("bwip-js");
 
 
 
@@ -24,8 +24,8 @@ exports.handler = async (event, context) => {
   console.log(event);
   try {
     // launch a new chrome instance
-    for (const record of event.Records) {
-      const message = JSON.parse(record.body);
+     
+      const message = JSON.parse(event.body);
       console.log(message);
       companyName = message.companyName;
       pageSubtitle=message.pageSubtitle;
@@ -77,12 +77,12 @@ exports.handler = async (event, context) => {
     const pdfBuffer = await page.pdf({
       format: "A4",
       // landscape mode
-      landscape: true,
+      landscape: false,
     });
 
     const today = new Date();
     const s3Path=`payslips/${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}/${employeeName}/${employeeID}`
-    const s3FileName=`${dataJson.trackingId}.pdf`
+    const s3FileName=`${dataJson.employeeName}.pdf`
 
     // Upload the PDF to Amazon S3.
     const s3 = new AWS.S3();
@@ -106,16 +106,16 @@ exports.handler = async (event, context) => {
     };
     const url = await s3.getSignedUrlPromise("getObject", s3Params2);
     // delete message from queue
-    const deleteParams = {
-      QueueUrl: queue_url,
-      ReceiptHandle: record.receiptHandle,
-    };
+    // const deleteParams = {
+    //   QueueUrl: queue_url,
+    //   ReceiptHandle: record.receiptHandle,
+    // };
     return {
       statusCode: 200,
-      body: 'Here is your Payslip',
-      url: url,
+      body: JSON.stringify({
+        url: url,
+      }),
     };
-  }
 
   } catch (error) {
     console.error(error);
@@ -125,37 +125,3 @@ exports.handler = async (event, context) => {
     };
   }
 };
-
-
-// async function generateQRCodeBase64(trackingId, width, height) {
-//   try {
-//     const qrCodeDataURL = await QRCode.toDataURL(trackingId, {
-//       width: width,
-//       height: height,
-//     });
-//     return qrCodeDataURL;
-//   } catch (error) {
-//     console.error("Error generating QR code:", error);
-//     throw error;
-//   }
-// }
-
-// function textToBarCodeBase64 (text) {
-//   return new Promise((resolve, reject) => {
-//       bwipjs.toBuffer({
-//           bcid: 'code128',
-//           text: text,
-//           height: 25,
-//           width: 155,
-//           includetext: false,
-//           textxalign: 'center'
-//       }, function(error, buffer) {
-//           if(error) {
-//               reject(error)
-//           } else {
-//               let gifBase64 = `data:image/gif;base64,${buffer.toString('base64')}`
-//               resolve(gifBase64)
-//           }
-//       })
-//   })
-// }
