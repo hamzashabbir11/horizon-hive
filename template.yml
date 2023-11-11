@@ -49,6 +49,46 @@ Resources:
     Metadata:
       BuildMethod: python3.7
 
+  # PDFGeneratorNodeLayer:
+  #   Type: AWS::Lambda::LayerVersion
+  #   Properties:
+  #     CompatibleRuntimes:
+  #       - nodejs14.x
+  #     Content:
+  #       S3Bucket: !Ref PDFLayerBucketRef
+  #       S3Key: puppeteer.zip # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversion.html
+  #     Description: puppeteer
+  #     LayerName: puppeteer
+  #     LicenseInfo: MIT
+
+  NodeJSDocumentsDependencies:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: dependencies/nodeJsDocumentsDepenedenices
+      CompatibleRuntimes:
+        - nodejs18.x
+    Metadata:
+      BuildMethod: nodejs18.x
+    DeletionPolicy: Retain
+
+
+  NodeJSCommonDependencies:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: dependencies/nodeJsCommonDependencies
+      CompatibleRuntimes:
+        - nodejs18.x
+    Metadata:
+      BuildMethod: nodejs18.x
+    DeletionPolicy: Retain
+
+
+
+  PDFLayerBucketRef:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "horizon-hive-pdf-layer-bucket"
+
 
 
 

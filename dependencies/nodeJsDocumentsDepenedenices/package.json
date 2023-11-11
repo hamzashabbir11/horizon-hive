@@ -1,0 +1,8 @@
+{
+    "name": "nodejs-dependencies",
+    "version": "1.0.0",
+    "dependencies": {
+        "bwip-js": "^4.1.1",
+        "qrcode": "^1.4.4"  
+    }}
+    
