@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pageTitle}}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .payslip {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-top:  5px solid #3498db; /* Blue color for the top border */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #3498db; /* Blue color for the header text */
+        }
+
+        .employee-info {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db; /* Blue color for table header background */
+            color: #fff; /* White color for table header text */
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+            background-color: #e67e22; /* Orange color for total row background */
+            color: #fff; /* White color for total row text */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payslip">
+        <div class="header">
+            <h1>{{companyName}}</h1>
+            <p>{{pageSubtitle}}</p>
+        </div>
+
+        <div class="employee-info">
+            <p><strong>Employee Name:</strong> {{employeeName}}</p>
+            <p><strong>Employee ID:</strong> {{employeeID}}</p>
+            <p><strong>Department:</strong> {{department}}</p>
+        </div>
+
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+            {{#each items}}
+            <tr>
+                <td>{{description}}</td>
+                <td>{{amount}}</td>
+            </tr>
+            {{/each}}
+            <tr class="total">
+                <td>Total</td>
+                <td>{{totalAmount}}</td>
+            </tr>
+        </table>
+
+        <div class="footer">
+            <p>{{footerText}}</p>
+        </div>
+    </div>
+
+</body>
+</html>

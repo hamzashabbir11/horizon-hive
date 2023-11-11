@@ -51,6 +51,17 @@ Resources:
             Path: /payslip/generate
             Method: POST
             ApiId: !Ref BytwiseHttpApi
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:PutObject*
+              Resource: !Sub "arn:aws:s3:::${PaySlipBucket}/*"
+      Environment:
+        Variables:
+          payslip_bucket: !Ref PaySlipBucket
+      
 
   BytewiseQueue:
     Type: AWS::SQS::Queue
@@ -108,6 +119,11 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "horizon-hive-pdf-layer-bucket"
+
+  PaySlipBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "horizon-hive-payslip-bucket"
 
 
 
