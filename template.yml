@@ -32,7 +32,7 @@ Resources:
             Method: GET
             ApiId: !Ref BytwiseHttpApi
 
-  BytewiseFunction:
+  YoutubeFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: resources/youtube
@@ -49,6 +49,17 @@ Resources:
             Path: /youtube/{link}
             Method: POST 
             ApiId: !Ref BytwiseHttpApi
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:PutObject*
+              Resource: !Sub "arn:aws:s3:::${youtube-bucket-${AWS::AccountId}}/*"
+            - Effect: Allow
+              Action:
+                - S3:GetObject*
+              Resource: !Sub "arn:aws:s3:::${youtube-bucket-${AWS::AccountId}}/*"
 
 
   GeneratePaySlipFunction:
@@ -56,7 +67,7 @@ Resources:
     Properties:
       Handler: index.handler
       CodeUri: resources/payslip
-      Runtime: nodejs14.x
+      Runtime: nodejs18.x
       MemorySize: 1024
       Timeout: 300
       Layers:
@@ -85,6 +96,11 @@ Resources:
           payslip_bucket: !Ref PaySlipBucket
       
 
+  YoutubeBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "youtube-bucket-${AWS::AccountId}"
+
   BytewiseQueue:
     Type: AWS::SQS::Queue
     Properties:
@@ -106,7 +122,7 @@ Resources:
     Type: AWS::Lambda::LayerVersion
     Properties:
       CompatibleRuntimes:
-        - nodejs14.x
+        - nodejs18.x
       Content:
         S3Bucket: !Ref PDFLayerBucketRef
         S3Key: puppeteer.zip # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-layerversion.html
