@@ -19,7 +19,7 @@ Resources:
     Properties:
       Handler: bytewise.handler
       CodeUri: resources/bytewise
-      Runtime: python3.7
+      Runtime: python3.10
       MemorySize: 128
       Timeout: 300
       Layers:
@@ -30,6 +30,24 @@ Resources:
           Properties:
             Path: /bytewise/{id}
             Method: GET
+            ApiId: !Ref BytwiseHttpApi
+
+  BytewiseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: resources/youtube
+      Handler: youtube.handler
+      Runtime: python3.10
+      MemorySize: 128
+      Timeout: 300
+      Layers:
+        - !Ref DependenciesLayer
+      Events:
+        BytewiseEvent:
+          Type: HttpApi
+          Properties:
+            Path: /youtube/{link}
+            Method: POST 
             ApiId: !Ref BytwiseHttpApi
 
 
@@ -80,9 +98,9 @@ Resources:
     Properties:
       ContentUri: dependencies/common
       CompatibleRuntimes:
-        - python3.7
+        - python3.10
     Metadata:
-      BuildMethod: python3.7
+      BuildMethod: python3.10
 
   PDFGeneratorNodeLayer:
     Type: AWS::Lambda::LayerVersion
