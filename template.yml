@@ -55,11 +55,11 @@ Resources:
             - Effect: Allow
               Action:
                 - s3:PutObject*
-              Resource: !Sub "arn:aws:s3:::${youtube-bucket-${AWS::AccountId}}/*"
+              Resource: !Sub "arn:aws:s3:::youtube-bucket-${AWS::AccountId}/*"
             - Effect: Allow
               Action:
                 - S3:GetObject*
-              Resource: !Sub "arn:aws:s3:::${youtube-bucket-${AWS::AccountId}}/*"
+              Resource: !Sub "arn:aws:s3:::youtube-bucket-${AWS::AccountId}/*"
 
 
   GeneratePaySlipFunction:
