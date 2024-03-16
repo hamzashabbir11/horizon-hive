@@ -40,6 +40,9 @@ Resources:
       Runtime: python3.10
       MemorySize: 128
       Timeout: 300
+      Environment:
+        Variables:
+          YOUTUBE_BUCKET: !Ref YoutubeBucket
       Layers:
         - !Ref DependenciesLayer
       Events:
